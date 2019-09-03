@@ -3,6 +3,7 @@ package com.company;
 import Model.*;
 import com.company.Database.Mydatabase;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -162,12 +163,8 @@ public class Main {
                                         Type.MOTORBIKE.motorbikecalculatecost();
                                         Type.MOTORBIKE.motorbikeexpecteddeliverydate();
                                         break;
-
-
-                                }
-
-
-                                break;
+                             }
+                           break;
 
                             case 2:
 
@@ -189,7 +186,6 @@ public class Main {
 
                                     }
                                 }
-
 
                                 break;
 
@@ -276,10 +272,10 @@ public class Main {
 
                     int PURCHASECHOICE;
                     Mydatabase mydatabase1 = new Mydatabase();
-                    PurchaseVehicle purchaseVehicle = new PurchaseVehicle();
                     Purchasecustomerinformation purchasecustomerinformation = new Purchasecustomerinformation();
                     do {
 
+                        PurchaseVehicle purchaseVehicle = new PurchaseVehicle();
 
                         System.out.println("WELCOME TO PURCHASE OF CAR !");
                         System.out.println("***************************!");
@@ -289,7 +285,8 @@ public class Main {
                         System.out.println("3: PAYMENT STATUS OF CUSTOMER !");
                         System.out.println("4: UPDATE PAYMENT STATUS !");
                         System.out.println("5: DELETE CUSTOMER !");
-                        System.out.println("6: EXIT APPLICATION ! ");
+                        System.out.println("6: UPDATE VEHICLE BY MODEL NUMBER");
+                        System.out.println("7: EXIT APPLICATION ! ");
 
                         PURCHASECHOICE = commandLineScanner.nextInt();
 
@@ -379,7 +376,6 @@ public class Main {
 
                                                 System.out.println("Thank You!. Information Stored!");
                                                 break;
-
                                         }
 
                                         break;
@@ -558,12 +554,42 @@ public class Main {
 
                             case 6:
 
+                                System.out.println("UPDATE VEHICLE BY MODEL NUMBER!!");
+                                System.out.println("Enter the Vehicle Model Number that you want to Update:");
+                                commandLineScanner.nextLine();
+                                String pmodelnumber = commandLineScanner.nextLine();
+                                System.out.println("Enter the new Name of Vehicle ");
+                                String pname = commandLineScanner.nextLine();
+                                System.out.println("Enter the new Price of Vehicle ");
+                                double price = commandLineScanner.nextInt();
+
+                               List<PurchaseVehicle> purchaseVehicles = purchasecustomerinformation.getPvehicles();
+
+
+                                for(PurchaseVehicle p: purchaseVehicles) {
+                                    if( pmodelnumber.equalsIgnoreCase(p.getPmodelnumber())){
+
+                                        p.setPname(pname);
+                                        p.setPrice(price);
+                                        purchasecustomerinformation.updateVehicleByModelNumber(p);//update list now
+                                        mydatabase1.updatePurchaseCustomer(purchasecustomerinformation);// update database
+                                      }
+
+                                }
+
+                                System.out.println("Vehicle data is Updated Successfully and Information is Updated!!!!!!:");
+
+                                break;
+
+
+                            case 7:
+
                                 System.out.println(" THANK YOU FOR USING APPLICATION !");
 
                                 break;
                         }
 
-                    } while (PURCHASECHOICE != 6);
+                    } while (PURCHASECHOICE != 7);
 
             }
         } while (MAINCHOICE != 2);

@@ -9,7 +9,7 @@ public class Purchasecustomerinformation {
     private String plname;
     private String pcusId;
     private String pmobilenumber;
-    private List<PurchaseVehicle > pvehicles;
+    private List<PurchaseVehicle> pvehicles;
 
     public String getPfname() {
         return pfname;
@@ -53,30 +53,44 @@ public class Purchasecustomerinformation {
 
     public void addPurchaseVehicle(PurchaseVehicle purchaseVehicle) {
 
-        if(this.pvehicles == null){
+        if (this.pvehicles == null) {
             this.pvehicles = new ArrayList<>();
         }
         this.pvehicles.add(purchaseVehicle);
     }
 
-    public void removePurchaseVehicle(String pmodelnumber){
-        if(this.pvehicles != null || this.pvehicles.size() > 0) {
+    public void removePurchaseVehicle(String pmodelnumber) {
+        if (this.pvehicles != null || this.pvehicles.size() > 0) {
             this.pvehicles.removeIf(p -> pmodelnumber.equalsIgnoreCase(p.getPmodelnumber()));
         }
     }
-    public void findByPurchaseStatusType(PurchaseVehicle purchaseVehicle){
-        if(this.pvehicles!= null || this.pvehicles.size()>0){
+
+    public void findByPurchaseStatusType(PurchaseVehicle purchaseVehicle) {
+        if (this.pvehicles != null || this.pvehicles.size() > 0) {
 
             purchaseVehicle.getStype();
 
-        }else
-        {
+        } else {
             System.out.println("Vehicle is not Present");
         }
 
 
     }
 
+    public void updateVehicleByModelNumber(PurchaseVehicle pmodelnumber) {
+        for (int i = 0; pvehicles.size() > i; i++) {
+
+            PurchaseVehicle purchaseVehiclemobileNumberToUpdate = pvehicles.get(i);
+            if (purchaseVehiclemobileNumberToUpdate.getPmodelnumber() == pmodelnumber.getPmodelnumber()) {
+
+                this.pvehicles.set(i, pmodelnumber);
+
+            } else {
+                System.out.println("Mobile number is not present");
+            }
+
+        }
 
 
+    }
 }
